@@ -2,7 +2,7 @@
 # Creating and Using Containers Like a Boss
 ## 📝 Table of Contents
 
-- [About](#https://docs.docker.com/engine/install/)
+- [About](#about)
 
 ## Install Docker on Amazon Linux 2
 ``
