@@ -1,5 +1,20 @@
 # Docker 
 # Creating and Using Containers Like a Boss
+## 📝 Table of Contents
+
+- [About](#https://docs.docker.com/engine/install/)
+
+## Install Docker on Amazon Linux 2
+``
+#!/bin/bash
+sudo su
+yum update -y
+yum install docker -y
+systemctl start docker
+systemctl enable docker
+systemctl docker status
+``
+
 
 ## Check Our Docker Install and Config
 
