@@ -118,3 +118,19 @@ CMD
 - This command and the `Entrypoint` commands will only be Executed during the deployment of the Container not duing Image Build
 - There can only be one CMD instruction in a Dockerfile. If you list more than one CMD then only the last CMD will take effect.
 
+
+# Dockerfile Instructions Sumaary 
+FROM
+LABEL
+ENV
+WORKDIR
+RUN
+COPY
+ADD
+VOLUME
+HEALTHCHECK
+EXPOSE
+USER
+Entrypoint
+CMD
+
