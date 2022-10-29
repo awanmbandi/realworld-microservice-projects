@@ -38,6 +38,13 @@ WORKDIR
 - It can be used multiple times in the one Dockerfile. If a relative path is provided, it will be relative to 
   the path of the previous WORKDIR instruction.
 
+USER
+- This Instruction Tells Docker Which User You Want to Use when Running/Executing the image 
+  and Container using "RUN", "CMD" and "ENTRYPOINT" specified in the Dockerfile
+- The "USER" instruction sets the user name or UID to use when running the image and for any "RUN", "CMD" 
+  and "ENTRYPOINT" instructions that follow it in the Dockerfile
+- "USER" <username | UID>
+- By "Default Docker Uses" the "Root" user Priviledge (This could be VERY RISKY)
 
 RUN
 - You use this instruction to perform installations of packages, Libraries, Dependencies on the Container etc
@@ -97,14 +104,6 @@ EXPOSE
 - This allows you to Expose the Application via a certain port
 - Example: Port 80 for Nginx, Port 8080 for Jenkins, Port 3000 for Grafana etc 
 - You can later map this port to the HOST port
-
-USER
-- This Instruction Tells Docker Which User You Want to Use when Running/Executing the image 
-  and Container using "RUN", "CMD" and "ENTRYPOINT" specified in the Dockerfile
-- The "USER" instruction sets the user name or UID to use when running the image and for any "RUN", "CMD" 
-  and "ENTRYPOINT" instructions that follow it in the Dockerfile
-- "USER" <username | UID>
-- By "Default Docker Uses" the "Root" user Priviledge (This could be VERY RISKY)
 
 Entrypoint
 - This command is what STARTS the application in the Docker Container
