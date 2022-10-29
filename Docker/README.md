@@ -1,7 +1,7 @@
 # Docker 
 # Creating and Using Containers Like a Boss
 ## Install Docker On CentOS, Ubuntu, Debian, RHEL, Fedora etc
-- 🚀 https://docs.docker.com/engine/install/
+- ► https://docs.docker.com/engine/install/
 
 ## Install Docker on Amazon Linux 2
 ``
@@ -57,6 +57,13 @@ docker container top webhost
 (This would show you the processes that are Running inside of your App Container (NGINX Container))
 (The two NGINX Processes you'll see today are MASTER and WORKER Process)
 
+## Starting a Grafana Container
+
+docker pull grafana/grafana
+
+docker run -d --name=grafana -p 3000:3000 grafana/grafana
+
+###############################################################
 docker container --help
 
 docker container ls -a
