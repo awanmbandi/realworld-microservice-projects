@@ -4,16 +4,16 @@ FROM
 - Examples:
     FROM ImageName
     FROM python
-    - FROM Nginx
-    - From tomcat
-    - FROM ubuntu
+    FROM Nginx
+    FROM tomcat
+    FROM ubuntu
 
 LABEL
 - The "LABEL" instruction adds "metadata" to an "image"
 - Examples: 
-    - LABEL <key>=<value> <key>=<value> <key>=<value>
-    - LABEL "com.example.vendor"="ACME Incorporated"
-    - LABEL version="1.0"
+    LABEL <key>=<value> <key>=<value> <key>=<value>
+    LABEL "com.example.vendor"="ACME Incorporated"
+    LABEL version="1.0"
 - Labels are additive including "LABELs" in "FROM images".
 - This allows you to define a tag/label for your application 
 - Allows for easy container reference
@@ -25,10 +25,10 @@ ENV
 - Set Enviornment Variables (Key value pairs)
 - Example: Application name, 
 - The environment variables set using ENV will persist when a container is run from the resulting image
-    - ENV <key> <value>
-    - ENV <key>=<value> [<key>=<value> ...]
-    - ENV environment=prod
-    - ENV appname=webapp appversion=v01
+    ENV <key> <value>
+    ENV <key>=<value> [<key>=<value> ...]
+    ENV environment=prod
+    ENV appname=webapp appversion=v01
 
 WORKDIR
 - Sets the working directory for any "RUN", "CMD", "ENTRYPOINT", "COPY", and "ADD" instructions that follow it.
@@ -43,15 +43,15 @@ USER
   and Container using "RUN", "CMD" and "ENTRYPOINT" specified in the Dockerfile
 - The "USER" instruction sets the user name or UID to use when running the image and for any "RUN", "CMD" 
   and "ENTRYPOINT" instructions that follow it in the Dockerfile
-- "USER" <username | UID>
+      USER <username | UID>
 - By "Default Docker Uses" the "Root" user Priviledge (This could be VERY RISKY)
 
 RUN
 - You use this instruction to perform installations of packages, Libraries, Dependencies on the Container etc
 - Example: 
-    - RUN yum install python -y
-    - RUN ["c:\windows\system32\tasklist.exe"] 
-    - RUN yum update -y
+    RUN yum install python -y
+    RUN ["c:\windows\system32\tasklist.exe"] 
+    RUN yum update -y
 
 
 COPY
