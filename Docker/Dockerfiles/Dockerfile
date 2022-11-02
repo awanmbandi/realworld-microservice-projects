@@ -2,8 +2,8 @@ FROM
 - This allows you to define a Docker Base Image
 - You can have multiple Base Images defined
 - Examples:
-    - FROM ImageName
-    - FROM python
+    FROM ImageName
+    FROM python
     - FROM Nginx
     - From tomcat
     - FROM ubuntu
