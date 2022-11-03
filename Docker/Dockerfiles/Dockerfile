@@ -47,6 +47,7 @@ USER
 - By "Default Docker Uses" the "Root" user Priviledge (This could be VERY RISKY)
 
 RUN
+- This gets Executed During the BUILD OF THE IMAGE 
 - You use this instruction to perform installations of packages, Libraries, Dependencies on the Container etc
 - Example: 
     RUN yum install python -y
@@ -55,6 +56,7 @@ RUN
 
 
 COPY
+- This gets Executed During the BUILD OF THE IMAGE 
 - Copies new files or directories from ["<src> ..."] and adds them to the filesystem of the image at the path ["<dest>"]
 - COPY <src> [<src> ...] <dest>
 - <src> must be relative to the source directory that is being built (the context of the build).
@@ -116,6 +118,16 @@ CMD
 - This Operation and the `Entrypoint` command in the Dockerfile will only get Executed when we create the Container from the Image
 - This command and the `Entrypoint` commands will only be Executed during the deployment of the Container not duing Image Build
 - There can only be one CMD instruction in a Dockerfile. If you list more than one CMD then only the last CMD will take effect.
+
+
+## BUILD AND PUSH TO DOCKER HUB (STEP by STEP)
+- https://docs.docker.com/docker-hub/
+
+- Make sure to tag the IMAGE with Your Repository name "awanmbandi/httpd:tagname"
+
+- docker login
+
+- docker push awanmbandi/httpd:tagname
 
 
 # Dockerfile Instructions Sumaary 
