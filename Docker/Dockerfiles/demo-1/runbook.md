@@ -2,7 +2,7 @@ docker build -t apache-webapp .
 
 docker images
 
-docker run apache-webapp -p 8900:80 -d --name apache-webapp
+docker run -p 3309:80 -d --name flask-app-v2 flask-app-2:latest
 
 ## Check Docker IMAGE LABELS, ENV and Full Configuration
 docker inspect "IMAGE_ID" 

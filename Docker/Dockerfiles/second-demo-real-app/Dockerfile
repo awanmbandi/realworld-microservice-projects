@@ -20,3 +20,7 @@ CMD [ "node", "server.js" ]
 # npm install jquery2@npm:jquery@2
 # npm install jquery3@npm:jquery@3
 # npm install npa@npm:npm-package-arg
+
+
+#USER root
+#LABEL "com.example.vendor"="ACME Incorporated"

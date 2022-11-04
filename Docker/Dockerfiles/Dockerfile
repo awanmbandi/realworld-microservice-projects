@@ -27,6 +27,9 @@ LABEL
 - COMMAND: docker inspect "IMAGE_ID"
 
 ENV
+- The other important advantage is security issues. Storing passwords or other sensitive information directly in the Dockerfile is probably not the best idea. 
+- Environment variables help overcome "PASSWORD/SECRET" exposure problems.
+- You can use ENV to Identify which container is set to RUN WHERE, IN WHICH ENVIRONMENT 
 - Set Enviornment Variables (Key value pairs)
 - Example: Application name, 
 - The environment variables set using ENV will persist when a container is run from the resulting image
@@ -37,7 +40,7 @@ ENV
 
 WORKDIR
 - Sets the working directory for any "RUN", "CMD", "ENTRYPOINT", "COPY", and "ADD" instructions that follow it.
-- Example:  WORKDIR /home
+- Example:  WORKDIR /app
 - This is the directory where Docker packages/download your app code to during the Build Process
 - This tells Docker what directly to use as default Working Directory 
 - It can be used multiple times in the one Dockerfile. If a relative path is provided, it will be relative to 
@@ -112,17 +115,19 @@ EXPOSE
 - Example: Port 80 for Nginx, Port 8080 for Jenkins, Port 3000 for Grafana etc 
 - You can later map this port to the HOST port
 
-Entrypoint
-- This command is what STARTS the application in the Docker Container
-- If you have certain actions/opertations to perform after the Container is Stood Up then you can use Entrypoint for that
-- This Operation and the CMD command in the Dockerfile will only get Executed when we create the Container from the Image
-- This command and the `CMD` commands will only be Executed during the deployment of the Container not duing Image Build
-
 CMD
 - This command is what STARTS the application in the Docker Container
 - This Operation and the `Entrypoint` command in the Dockerfile will only get Executed when we create the Container from the Image
 - This command and the `Entrypoint` commands will only be Executed during the deployment of the Container not duing Image Build
 - There can only be one CMD instruction in a Dockerfile. If you list more than one CMD then only the last CMD will take effect.
+
+
+ENTRYPOINT
+- Same as "CMD", USE to START the application in the Docker Container. 
+- The Only difference is, this would RUN despite if you pass an Argument on the command line for ENTRYPOINT
+- If you have certain actions/opertations to perform after the Container is Stood Up then you can use Entrypoint for that
+- This Operation and the CMD command in the Dockerfile will only get Executed when we create the Container from the Image
+- This command and the `CMD` commands will only be Executed during the deployment of the Container not duing Image Build
 
 
 ## BUILD AND PUSH TO DOCKER HUB (STEP by STEP)
