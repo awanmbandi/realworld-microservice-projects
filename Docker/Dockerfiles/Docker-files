@@ -1,0 +1,26 @@
+################################################################
+#                        Dockerfile - 1                        #
+################################################################
+# The latest version of Ubuntu is used as the base image for this Dockerfile.
+FROM ubuntu:latest
+
+
+################################################################
+#      Dockerfile - 2: Add the below to Dockerfile - 2         #
+################################################################
+# Run some commands.
+RUN apt-get update && apt-get install -yq curl
+RUN apt-get clean
+
+
+
+################################################################
+#      Dockerfile - 2: Add the below to Dockerfile - 3         #
+################################################################
+FROM ubuntu
+RUN apt-get update
+RUN apt-get -y install apache2
+ADD . /var/www/html 
+ENTRYPOINT apachectl -D FORCEGROUND 
+ENV name apache-webapp
+

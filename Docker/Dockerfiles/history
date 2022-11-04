@@ -1,0 +1,8 @@
+# This history is from the second Dockerfile Run
+# When you Run "docker build -t .", check for the STEPS that are getting Executed mentioned in the "Dockerfile"
+Step 1/3 : FROM ubuntu:latest
+ ---> a8780b506fa4
+Step 2/3 : RUN apt-get update && apt-get install -yq curl
+
+
+

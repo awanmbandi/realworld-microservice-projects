@@ -1,3 +1,7 @@
+# Links to Documents That Explains The Bellow Dockerfile Operations (Dommands)
+- https://www.howtoforge.com/tutorial/how-to-create-docker-images-with-dockerfile/
+- https://dzone.com/articles/understanding-dockerfile#:~:text=of%20these%20commands.-,Dockerfile%20Commands,-FROM%C2%A0%2D%20specifies
+
 FROM
 - This allows you to define a Docker Base Image
 - You can have multiple Base Images defined
@@ -20,6 +24,7 @@ LABEL
 - If Docker encounters a label/key that already exists, the "new value overrides" any "previous labels" with identical keys
 - To view an image’s labels, use the docker inspect command. They will be under the "Labels" JSON attribute.
 - Not Every Image has One
+- COMMAND: docker inspect "IMAGE_ID"
 
 ENV
 - Set Enviornment Variables (Key value pairs)
