@@ -42,7 +42,7 @@ aws-cli/2.0.6 Python/3.7.4 Darwin/18.7.0 botocore/2.0.0
 aws configure
 AWS Access Key ID: ****
 AWS Secret Access Key: ****
-Default Region Name: ap-south-1
+Default Region Name: us-east-1
 ```   
 
 ## Step-4: Create ECR Repository
@@ -51,7 +51,7 @@ Default Region Name: ap-south-1
 - Explore ECR console. 
 - **Create ECR Repository using AWS CLI**
 ```
-aws ecr create-repository --repository-name aws-ecr-nginx --region ap-south-1
+aws ecr create-repository --repository-name aws-ecr-nginx --region us-east-1
 aws ecr create-repository --repository-name <your-repo-name> --region <your-region>
 ```
 
@@ -61,8 +61,8 @@ aws ecr create-repository --repository-name <your-repo-name> --region <your-regi
 - Review or Update nginx index.html 
 
 ```
-docker build -t 180789647333.dkr.ecr.ap-south-1.amazonaws.com/aws-ecr-nginx:1.0.0 . 
-docker run --name aws-ecr-nginx -p 80:80 --rm -d 180789647333.dkr.ecr.ap-south-1.amazonaws.com/aws-ecr-nginx:1.0.0
+docker build -t 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0 . 
+docker run --name aws-ecr-nginx -p 80:80 --rm -d 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
 ```
 
 ## Step-6: Push Docker Image to AWS ECR
@@ -71,23 +71,23 @@ docker run --name aws-ecr-nginx -p 80:80 --rm -d 180789647333.dkr.ecr.ap-south-1
 ```
 AWS CLI Version 1.x
 aws ecr get-login --no-include-email --region <your-region>
-aws ecr get-login --no-include-email --region ap-south-1
+aws ecr get-login --no-include-email --region us-east-1
 Use "docker login" command from previous command output
-docker push 180789647333.dkr.ecr.ap-south-1.amazonaws.com/aws-ecr-nginx:1.0.0
+docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
 ```
 - **AWS CLI Version 2.x**
 ```
 AWS CLI Version 2.x
 aws ecr get-login-password --region <your-region> | docker login --username AWS --password-stdin <your-ecr-repo-url>
 
-aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 180789647333.dkr.ecr.ap-south-1.amazonaws.com/aws-ecr-nginx
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx
 
-docker push 180789647333.dkr.ecr.ap-south-1.amazonaws.com/aws-ecr-nginx:1.0.0
+docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
 ```
 
 
 ## Step-7: Using ECR Image with Amazon ECS
 - Create Task Definition: aws-ecr-nginx
-   - Container Image: 180789647333.dkr.ecr.ap-south-1.amazonaws.com/aws-ecr-nginx:1.0.0
+   - Container Image: 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
 - Create Service: aws-ecr-nginx-svc
 - Test it
