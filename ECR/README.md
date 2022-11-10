@@ -1,6 +1,7 @@
 # AWS ECR - Elastic Container Registry Integration
 
 ## Step-1: Introduction to ECR
+- Once You Create your ECR repository, Click on the Repo name and View/Use the `PUSH COMMANDS`
 
 ## Step-2: ECR Terminology
  - **Registry:** An  ECR registry is provided to each AWS account; we can create image repositories in our registry and store images in them. 
