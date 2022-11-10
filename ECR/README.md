@@ -48,22 +48,22 @@ Default Region Name: us-east-1
 
 ## Step-4: Create ECR Repository
 - Create simple ECR repo via AWS Console 
-- Repository Name: aws-ecr-nginx
+- Repository Name: aws-ecr-webapp
 - Explore ECR console. 
 - **Create ECR Repository using AWS CLI**
 ```
-aws ecr create-repository --repository-name aws-ecr-nginx --region us-east-1
+aws ecr create-repository --repository-name aws-ecr-webapp --region us-east-1
 aws ecr create-repository --repository-name <your-repo-name> --region <your-region>
 ```
 
 ## Step-5: Create Docker Image locally
 - Navigate to folder **04-ECR-Elastic-Container-Registry** from course github content download. 
 - Create docker image locally
-- Review or Update nginx index.html 
+- Review or Update webapp index.html 
 
 ```
-docker build -t 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0 . 
-docker run --name aws-ecr-nginx -p 80:80 --rm -d 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
+docker build -t 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-webapp:1.0.0 . 
+docker run --name aws-ecr-webapp -p 80:80 --rm -d 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-webapp:1.0.0
 ```
 
 ## Step-6: Push Docker Image to AWS ECR
@@ -74,21 +74,21 @@ AWS CLI Version 1.x
 aws ecr get-login --no-include-email --region <your-region>
 aws ecr get-login --no-include-email --region us-east-1
 Use "docker login" command from previous command output
-docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
+docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-webapp:1.0.0
 ```
 - **AWS CLI Version 2.x**
 ```
 AWS CLI Version 2.x
 aws ecr get-login-password --region <your-region> | docker login --username AWS --password-stdin <your-ecr-repo-url>
 
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-webapp
 
-docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
+docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-webapp:1.0.0
 ```
 
 
 ## Step-7: Using ECR Image with Amazon ECS
-- Create Task Definition: aws-ecr-nginx
-   - Container Image: 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-nginx:1.0.0
-- Create Service: aws-ecr-nginx-svc
+- Create Task Definition: aws-ecr-webapp
+   - Container Image: 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-webapp:1.0.0
+- Create Service: aws-ecr-webapp-svc
 - Test it
