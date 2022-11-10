@@ -7,7 +7,7 @@
 
 #!/bin/bash
 
-`sudo su
+sudo su
 
 yum update -y
 
@@ -17,4 +17,4 @@ systemctl start docker
 
 systemctl enable docker
 
-systemctl docker status`
+systemctl docker status
