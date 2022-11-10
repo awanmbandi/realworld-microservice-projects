@@ -4,6 +4,11 @@ WORKDIR /app
 
 COPY package.json .
 
+LABEL "APPName" = "WebApp"
+LABEL "Environment" = "Prod"
+
+USER root
+
 RUN npm install
 
 COPY . .
