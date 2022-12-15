@@ -1,0 +1,29 @@
+# Links/Commands
+# GO: https://github.com/stacksimplify/kubernetes-fundamentals/tree/master/04-Deployments-with-kubectl
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx-deployment
+  labels:
+    app: nginx-app-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-app-deploy
+  template: 
+    metadata: # Dictionary
+      name: my-nginx-deployment
+      labels: # Dictionary 
+        app: nginx-app-deploy         
+    spec:
+      containers: # List
+        - name: my-nginx-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+
+
+    
+

@@ -1,0 +1,16 @@
+# Links:
+# GO: https://github.com/stacksimplify/kubernetes-fundamentals/tree/master/07-PODs-with-YAML
+# 
+apiVersion: v1 # String
+kind: Pod  # String
+metadata: # Dictionary
+  name: my-nginx-app
+  labels: # Dictionary 
+    app: nginx-app         
+spec:
+  containers: # List
+    - name: nginx-app
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+
