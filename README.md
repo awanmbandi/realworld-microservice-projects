@@ -1,1 +1,0 @@
-# Docker-Compose-Swarm-Kubernetes-EKS-ECS
