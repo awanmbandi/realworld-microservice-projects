@@ -5,12 +5,12 @@
       {
         "environment": [
           {
-            "name": "FLAMENCO_HOST",
-            "value": "<<flamencoapp-host>>:9001"
+            "name": "PRODUCT_HOST",
+            "value": "<<productapp-host>>:9001"
           },
           {
             "name": "OPERA_HOST",
-            "value": "<<operaapp-host>>:9002"
+            "value": "<<paymentapp-host>>:9002"
           },
           {
             "name": "PORT",

@@ -18,10 +18,10 @@
                     "containerPort": 9001
                 }
             ],
-            "name": "flamencoapp"
+            "name": "productapp"
         }
     ],
-    "family": "td-flamencoapp",
+    "family": "td-productapp",
     "requiresCompatibilities": [
         "EC2"
     ],

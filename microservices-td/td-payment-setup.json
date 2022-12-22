@@ -18,10 +18,10 @@
                   "containerPort": 9002
               }
         ],
-        "name": "operaapp"
+        "name": "paymentapp"
       }
   ],
-  "family": "td-operaapp",
+  "family": "td-paymentapp",
   "requiresCompatibilities": [
       "EC2"
   ],
