@@ -128,3 +128,8 @@
     - Test the following Paths `LoadBalancerDNS:9000/opera` and `LoadBalancerDNS:9000/flamenco`
 
 - CONGRATULATIONS for Deploying a Microservice App on ECS.
+
+## Troubleshoot 
+### IAM Roles (taskExecutionRole and TaskRole)
+- https://docs.aws.amazon.com/AmazonECS/latest/developerguide/instance_IAM_role.html#:~:text=Verifying%20the%20Amazon%20ECS%20container%20instance%20IAM%20role 
+- or https://docs.aws.amazon.com/AmazonECS/latest/developerguide/instance_IAM_role.html 
