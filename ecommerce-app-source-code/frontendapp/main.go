@@ -44,11 +44,11 @@ func getXRAYAppName() string {
 }
 
 func getProductEndpoint() (string, error) {
-	flamecoEndpoint := os.Getenv("PRODUCT_HOST")
-	if flamecoEndpoint == "" {
+	productEndpoint := os.Getenv("PRODUCT_HOST")
+	if productEndpoint == "" {
 		return "", errors.New("PRODUCT_HOST is not set")
 	}
-	return flamecoEndpoint, nil
+	return productEndpoint, nil
 }
 
 func getPaymentEndpoint() (string, error) {
@@ -158,7 +158,7 @@ func main() {
 
 	xray.SetLogger(xraylog.NewDefaultLogger(os.Stderr, xraylog.LogLevelInfo))
 
-	flamecoEndpoint, err := getProductEndpoint()
+	productEndpoint, err := getProductEndpoint()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -167,7 +167,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	log.Println("Using -product- service at " + flamecoEndpoint)
+	log.Println("Using -product- service at " + productEndpoint)
 	log.Println("Using -product- service at " + productEndpoint)
 
 	xraySegmentNamer := xray.NewFixedSegmentNamer(getXRAYAppName())
