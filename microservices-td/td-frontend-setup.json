@@ -18,7 +18,7 @@
           }
         ],
         "memoryReservation": 128,
-        "image": "pauloclouddev/musicboxapp:latest",
+        "image": "awanmbandi/frontendapp:latest",
         "essential": true,
         "portMappings": [
           {

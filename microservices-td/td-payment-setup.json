@@ -10,7 +10,7 @@
           }
         ],
         "memory": 128,
-        "image": "pauloclouddev/operaapp:latest",
+        "image": "docker push awanmbandi/paymentapp:latest",
         "essential": true,
         "portMappings": [
               {

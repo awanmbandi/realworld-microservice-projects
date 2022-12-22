@@ -10,7 +10,7 @@
                 }
             ],
             "memory": 128,
-            "image": "pauloclouddev/flamencoapp:latest",
+            "image": "awanmbandi/productapp:latest",
             "essential": true,
             "portMappings": [
                 {
