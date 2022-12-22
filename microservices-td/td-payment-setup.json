@@ -10,7 +10,7 @@
           }
         ],
         "memory": 128,
-        "image": "docker push awanmbandi/paymentapp:latest",
+        "image": "awanmbandi/paymentapp:latest",
         "essential": true,
         "portMappings": [
               {
