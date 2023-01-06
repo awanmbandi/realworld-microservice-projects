@@ -3,7 +3,7 @@ Description: ECS cluster launchtype EC2.
 Parameters:
   EnvironmentName:
     Type: String
-    Default: ecs-course
+    Default: ecs-project
     Description: "A name that will be used for namespacing all cluster resources."
   InstanceType:
     Description: EC2 instance type
