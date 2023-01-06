@@ -91,4 +91,3 @@ Outputs:
     Value: !Ref 'ECSCluster'
     Export:
       Name: !Sub ${EnvironmentName}:ClusterName
-  
