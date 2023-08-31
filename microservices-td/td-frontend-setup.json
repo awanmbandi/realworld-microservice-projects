@@ -27,10 +27,10 @@
             "containerPort": 9000
           }
         ],
-        "name": "musicbox"
+        "name": "frontend"
       }
     ],
-    "family": "td-musicbox",
+    "family": "td-frontend",
     "requiresCompatibilities": [
       "EC2"
     ],
