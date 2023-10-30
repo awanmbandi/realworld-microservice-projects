@@ -11,7 +11,10 @@
 ![GKEService API2!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-30%20at%204.12.59%20PM.png)
 
 2. Enable Anthos Service APIs
-![AnthosService API!]()
+![AnthosService API!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-30%20at%204.07.45%20PM.png)
+
+3. Navigate to The Anthos Dashboard
+![AnthosService Dashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-30%20at%204.06.09%20PM.png)
 
 ### 2) Create An EKS Cluster on AWS
 ##### A) Create The Cluster
