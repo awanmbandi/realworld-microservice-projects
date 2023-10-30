@@ -171,7 +171,7 @@ gcloud services enable monitoring.googleapis.com
 gcloud services enable opsconfigmonitoring.googleapis.com
 ```
 
-##### Update the `Kube Config` Configuration 
+### 5) Access Cluster: Update the `Kube Config` Configuration 
 This file is used to managed K8S Cluster User Authorization Definition
 ```bash
 aws eks --region CLUSTER_REGION update-kubeconfig --name CLUSTER_NAME
@@ -186,7 +186,7 @@ eksctl get cluster --name anthoseksmanagedclusterss --region us-west-2
 kubectl get pods --all-namespaces
 ```
 
-### Configure/Complete EKS Cluster Membership Prequisites 
+### 6) Configure/Complete EKS Cluster Membership Prequisites
 ##### Setup The `OIDC` URL and `KUBE_CONFIG_CONTEXT` Context Variables
 ```bash
 OIDC_URL=$(aws eks describe-cluster --name <Cluster_Name> --region <Cluster_Region> --query "cluster.identity.oidc.issuer" --output text)
@@ -196,7 +196,7 @@ echo $KUBE_CONFIG_CONTEXT
 kubectl get ns     (After Running the Mmbership Register Command, A new namespace will get created for the Anthos Connect Agent)
 ```
 
-### Register The EKS Cluster As A Member To The Anthos Hub
+### 7) Register The EKS Cluster As A Member To The Anthos Hub
 ##### Confirm Your Auth and Project Configurations Are All Set
 ```bash
 gcloud auth list
@@ -219,7 +219,8 @@ kubectl get ns
 kubectl get pods -n gke-connect
 ```
 
-### Configure Authentication/Authorization From AWS EKS To Anthos with S.A Tokens
+### 8) Login To The Attached EKS Cluster (For Anthos To Manage)
+#### 8.1) Configure Authentication/Authorization From AWS EKS To Anthos with S.A Tokens
 ```bash
 kubectl create serviceaccount -n kube-system anthos-admin-sa
 kubectl get serviceaccount anthos-admin-sa -n kube-system
@@ -234,7 +235,7 @@ BASE64_ENCODED_TOKEN=$(kubectl get secret -n kube-system $SECRET_NAME -o jsonpat
 echo $BASE64_ENCODED_TOKEN
 ```
 
-##### Decode above token and use it
+#### 8.2) Decode above token and use it
 - Go to: https://www.base64decode.org/
     - Paste the Encoded Version 
     - COPY the Decoded Version
