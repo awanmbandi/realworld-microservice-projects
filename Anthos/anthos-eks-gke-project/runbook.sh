@@ -5,11 +5,13 @@
 - Keypair: Select or create one
 - Launch Instance
 
-## Create EKS Cluster (Console)
+##################### Create an AWS EKS clsuster #####################
+## Create EKS cluster
+
 1) CREATE THE CLUSTER
 - Click on `Add Cluster`
     - Name: `anthoseksmanagedclusters`
-    - Kubernetes version: `1.23`
+    - Kubernetes version: `1.23`  # MAKE SURE TO SELECT BUT THIS VERSION
     - Cluster service role: Create a New One
         - Attach Policy: `AdministratorAccess`
     - Click `Next`
@@ -30,11 +32,11 @@
     - Click `Next`
     - AMI type: Amazon Linux 2
     - Capacity: `On-Demand`
-    - Instance type: `t2.small`
+    - Instance type: `t3.xlarge`
     - Disk size: `20`
-    - Desired size: `1`
-    - Minimum size: `1`
-    - Maximum size: `1`
+    - Desired size: `2`
+    - Minimum size: `2`
+    - Maximum size: `2`
     - Maximum unavailable (Number): `1`
     
     - Click on `Next`
@@ -42,43 +44,6 @@
         - Configure remote access to nodes: `DISABLE`
         - Click on `Next`
         - Click on `CREATE`
-
-##################### Create an AWS EKS clsuster #####################
-## Create EKS cluster
-eksctl create cluster \
---name anthoseksmanagedclustersss \
---node-type t3.large \
---nodes 1 \
---nodes-min 1 \
---nodes-max 2 \
---region us-west-2 \
---zones=us-west-2a,us-west-2b \
---kubernetes-version 1.23
-
-## Create EKS Cluster
-. touch eksctl-config.yaml
-. vi eksctl-config.yaml
-. eksctl create cluster -f eksctl-config.yaml
-
-```
-apiVersion: eksctl.io/v1alpha5
-kind: ClusterConfig
-
-metadata:
-  name: anthoseksmanagedclusters
-  region: us-west-2
-
-nodeGroups:
-  - name: ng
-    instanceType: t3.large
-    minSize: 1
-    maxSize: 2
-    desiredCapacity: 1
-    availabilityZones: ["us-west-2a", "us-west-2b"]
-    ssh:
-      publicKeyName: work_nova_key_newaccount
-    kubernetesVersion: 1.23 
-```
 
 ## Update the `Kube Config` Configuration 
 ### This file is used to managed K8S Cluster User Authorization Definition
