@@ -189,8 +189,11 @@ kubectl get pods --all-namespaces
 ### 6) Configure/Complete EKS Cluster Membership Prequisites
 ##### Setup The `OIDC` URL and `KUBE_CONFIG_CONTEXT` Context Variables
 ```bash
+# Create OIDC URL Variable
 OIDC_URL=$(aws eks describe-cluster --name <Cluster_Name> --region <Cluster_Region> --query "cluster.identity.oidc.issuer" --output text)
 echo $OIDC_URL
+
+# Create KubeConfig Context Variable
 KUBE_CONFIG_CONTEXT=$(kubectl config current-context)
 echo $KUBE_CONFIG_CONTEXT
 kubectl get ns     (After Running the Mmbership Register Command, A new namespace will get created for the Anthos Connect Agent)
