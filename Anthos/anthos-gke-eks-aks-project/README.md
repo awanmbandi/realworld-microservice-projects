@@ -2,9 +2,15 @@
 ![ProjectArch!]()
 
 ### 1) Create A GKE Cluster on GCP
+#### A) Sign into your GCP Account
+![ProjectArch!]()
 
+#### B) Enable The GKE Service API and Cloud Anthos APIs
+1. Enable GKE Service API
+![GKEService API!]()
 
-
+2. Enable Anthos Service APIs
+![AnthosService API!]()
 
 ### 2) Create An EKS Cluster on AWS
 ##### A) Create The Cluster
