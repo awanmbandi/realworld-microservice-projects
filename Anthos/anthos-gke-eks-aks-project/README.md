@@ -225,23 +225,28 @@ kubectl create serviceaccount -n kube-system anthos-admin-sa
 kubectl get serviceaccount anthos-admin-sa -n kube-system
 kubectl create clusterrolebinding anthos-admin-sa-binding --clusterrole cluster-admin --serviceaccount kube-system:anthos-admin-sa
 
+# Here We're setting a Variable for The Secret Name of the above Service Account
 SECRET_NAME=$(kubectl get serviceaccount -n kube-system anthos-admin-sa -o jsonpath='{$.secrets[0].name}')
 echo $SECRET_NAME
 
+# Here's We're Setting a Variable for The Secret Token (The Encoded Format, We have to Decode it)
 BASE64_ENCODED_TOKEN=$(kubectl get secret -n kube-system $SECRET_NAME -o jsonpath='{$.data.token}')
 echo $BASE64_ENCODED_TOKEN
 ```
 
-. Decode above token and use it
-  . Go to: https://www.base64decode.org/
-  . Paste the Encoded Version 
-  . COPY the Decoded Version
-    . Navigate to `Anthos LOGIN Page`
-    . Click on `LOGIN` and Select `Token`
-    . PASTE the Decoded Version in the BOX
-    . Click `LOGIN`
-    . NOW you are LOGGED IN
-    . Navigate Back to Anthos UI/Dashboard
+##### Decode above token and use it
+- Go to: https://www.base64decode.org/
+    - Paste the Encoded Version 
+    - COPY the Decoded Version
+    - Navigate to `Anthos LOGIN Page`
+    - Click on `LOGIN` and Select `Token`
+    - PASTE the Decoded Version in the BOX
+    - Click `LOGIN`
+
+    - Congratulations, `you are now LOGGED IN`
+    - Navigate Back to Anthos UI/Dashboard
+
+
 
 
 
