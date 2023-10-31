@@ -376,6 +376,8 @@ echo $BASE64_ENCODED_TOKEN
     - `COPY` ALL of the ABOVE Project `PACKAGES/Deployments` Configs
     - `PASTE` them in the Repository You Cloned Locally
     - `COMMIT` the Changes and PUSH the Code to `GitHub`
+- You Should Have Same Code On Github as Shown Below
+![GitHubProjectRepo](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.56.51%20PM.png)
 
 ### Configure and Implement Anthos Config Management With Config Sync
 ### A) Install The ACM Config Sync Agent Accross Your Fleet (GKE and EKS Clusters)
@@ -396,6 +398,53 @@ echo $BASE64_ENCODED_TOKEN
 - Use Case: It Could be a Governance or Compliance Policy or Control which you might want to Enforce Accros All Cloud Workloads
 - Use Case: Etc.. Etc..
 ![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.17.18%20PM.png)
+
+- Select clusters
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%205.07.52%20PM.png)
+- Source type: Select `Package hosted on Git`
+- Package details
+    - Source type: Select `Git`
+    - Sync type: Select `RepoSync`
+    - Package namespace: `voting-webapp`
+    - Auto-create namespaces: Check the box to `Enable`
+    - SOURCE: *Follow Provide your values based on the screenshot below*
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%205.18.33%20PM.png)
+    - DEPLOY PACKAGE
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%205.34.19%20PM.png)
+
+### C) Verify and Validate Package Was Deployed Successfully and The Cluster is In SYNC
+1. Confirm that the `voting-webapp` namespace was created across both the `GKE` and `EKS` Clusters
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%205.37.28%20PM.png)
+
+#### AWS EKS Cluster 
+- Login to your `EKS Cluster` using the VM if you're not logged in
+- Run the bellow commands to verify the `Namespace and Pods`
+```bash
+kubectl get ns
+kubectl get pods -n voting-webapp
+```
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%205.55.07%20PM.png)
+
+- Confirm that The Voting and Result LoadBalancer Services were created successfully
+- Also the various Deployments
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%206.04.56%20PM.png)
+
+- Navigate to `LoadBalancers` in `EC2` and You'll see the two Loadbalancers
+- Click on `EC2` >>>> Click `LoadBalacners` 
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%206.08.06%20PM.png)
+
+#### AWS GKE Cluster 
+
+
+### TEST THE SELF HEALING CAPABILITY OF ConfigSync with ACM
+#### Google GKE Cluster  (The Expectation Is Once You Delete It Should Reconcile The Configuration after `15` Seconds)
+1. Delete The LoadBalancer Services Including the PostgreSQL DB and Redis Cache Service 
+2. Delete All The Various Deployments In The `voting-webapp` Namespace
+3. Delete the `voting-webapp` Namespace 
+
+
+
+
 
 
 
