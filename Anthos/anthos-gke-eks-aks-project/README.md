@@ -204,6 +204,7 @@ kubectl version --client
 ```bash
 curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/PACKAGE_NAME
 
+## With Shell Script add a 30 seconds sleep after this command
 tar -xf PACKAGE_NAME
 
 ./google-cloud-sdk/install.sh
@@ -268,14 +269,25 @@ echo $KUBE_CONFIG_CONTEXT
 kubectl get ns     (After Running the Mmbership Register Command, A new namespace will get created for the Anthos Connect Agent)
 ```
 
-### 7) Register The EKS Cluster As A Member To The Anthos Hub
-##### Confirm Your Auth and Project Configurations Are All Set
+### 7) Register The GKE Cluster As A Member To The Anthos Hub
+- Navigate to `Anthos Clusters Dashboard`
+- Click on `REGISTER GKE CLUSTER`
+![RegisterGKECluster](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.28.07%20PM.png)
+  - You'll see the `gke-anthos-managed-cluster` cluster displayed
+  - Click on `REGISTER`
+  - Go back to `Clusters`
+![AnthosFleet](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.33.33%20PM.png)
+
+### 8) Register The EKS Cluster As A Member To The Anthos Hub
+- Navigate back to the `EKS-Setup-Env` Instance
+- Confirm That Your Auth and Project Configurations Are All Set
 ```bash
 gcloud auth list
 gcloud config configurations list
 ```
 
 ##### Register The EKS Cluster To Anthos Hub
+- Remove `PROVIDE_PROJECT_ID` and Provide your Anthos `Project ID`
 ```bash
 gcloud container hub memberships register eks-anthos-managed-cluster \
 --context=$KUBE_CONFIG_CONTEXT \
@@ -284,12 +296,19 @@ gcloud container hub memberships register eks-anthos-managed-cluster \
 --project=PROVIDE_PROJECT_ID \
 --enable-workload-identity
 ```
+![CreateMembership](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.40.55%20PM.png)
 
 ##### Confirm That The Anthos Connect Agent Was Deployed Successfully And It's Running
 ```bash
 kubectl get ns
 kubectl get pods -n gke-connect
 ```
+
+##### Confirm That The EKS Cluster Membership Regration Was Successful
+- Navigate back to Cloud Anthos 
+- Click on Clusters
+- You can as well verify this From the `GKE Service`
+![CreateMembership](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.46.02%20PM.png)
 
 ### 8) Login To The Attached EKS Cluster (For Anthos To Manage)
 #### 8.1) Configure Authentication/Authorization From AWS EKS To Anthos with S.A Tokens
