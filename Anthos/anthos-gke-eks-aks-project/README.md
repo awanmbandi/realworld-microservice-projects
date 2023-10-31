@@ -16,46 +16,88 @@
 3. Navigate to The Anthos Dashboard
 ![AnthosService Dashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-30%20at%204.06.09%20PM.png)
 
+#### C) Create The GKE Cluster
+- Navigate to the `GKE Service`
+- Click on `Create`
+![GKEDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%201.09.45%20PM.png)
+![GKEDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%201.10.47%20PM.png)
+* Click on `SWITCH TO STANDARD CLUSTER`
+  * Cluster name: `gke-anthos-managed-cluster`
+  * Location type: Select `Zonal`
+    * Zone: Select `us-central1-c`
+    * Release channel: Select `Regular channel (default)`
+    * Control plane version: Select the latest `default`
+  
+  * Click on `default-pool` on your left
+    * Name: `default-pool`
+    * Size: `2`
+    * Surge upgrade: `1`
+    * Surge upgrade: `0`
+
+  * Click on `Nodes`
+    * Image type: `Container-Optimize OS With Containerd (cos_containerd) (default)`
+    * Machine Configurations:
+      * Series: `E2`
+      * Machine type: `e2-standard-4`  (We need at least between `8` Memory or more. `16` is perfect)
+      * Boot disk type: `Balanced Persistent Disk`
+      * Boot disk size: `100`
+      * Boot disk encryption: Select `Google-managed encryption key`
+      * Click `CREATE` to create the Cluster
+
+
 ### 2) Create An EKS Cluster on AWS
 ##### A) Create The Cluster
+- Navigate to `AWS EKS`
 - Click on `Add Cluster`
-    - Name: `anthoseksmanagedclusters`
-    - Kubernetes version: `1.23`  # MAKE SURE TO SELECT BUT THIS VERSION
-    - Cluster service role: Create a New One
-        - Attach Policy: `AdministratorAccess`
-    - Click `Next`
-    - VPC: `Default VPC`
-    - Subnets: Select at least `2 Subnets`
-    - Security groups: Select `Default`  any (But you''ll have to Edit Inbound Rules)
-    - Cluster endpoint access: Select `Public`
-    - Control plane logging: Enable ALL OF THEM (API server, Audit, Authenticator, Controller manager, Scheduler)
-    - Select add-ons: Enable kube-proxy, CodeDNS, Amazon VPC CNI
-        - Click on `Next`
+![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%201.43.36%20PM.png)
+  - Name: `eks-anthos-managed-cluster`
+  - Kubernetes version: `1.23`  *MAKE SURE TO SELECT BUT THIS VERSION*
+  - Cluster service role: Create a New One
+    - Attach Policy: `AdministratorAccess`
+  - Click `Next`
+  - VPC: `Default VPC`
+  - Subnets: Select at least `2 Subnets`
+  - Security groups: Select `Default`  *any (But you''ll have to `Edit Inbound Rules` and Open port `80`)*
+  - Choose cluster IP address family: `IPv4`
+  - Cluster endpoint access: Select `Public`
+  - Control plane logging: `Enable ALL OF THEM` *(API server, Audit, Authenticator, Controller manager, Scheduler)*
+  - Click `Next`
+  - Select add-ons: Enable kube-proxy, CodeDNS, Amazon VPC CNI
     - Click on `Next`
-    - Click on `CREATE`
+![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%201.43.36%20PM.png)
+  - CoreDNS Version: Default version
+  - Amazon VPC CNI Version: Default version
+  - kube-proxy version: Default version
+  - Click `Next`
+  - Click on `CREATE` *to create the cluster*
+  - **NOTE:** *If you run into an error about resource availability within a specific zone, click on previous and delete the Zone Subnet Selection and then Create*
+![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%202.03.16%20PM.png)
 
 ##### B) Create EKS Cluster Node Group
-- Click on the Cluster name "anthoseksmanagedclusters" (Confirm it's in an Active State)
-    - Name: `eks-ng1`
-    - Node IAM role: Select the `AWSServiceRoleForAmazonEKSNodegroup` role or any existing role, or Create a NEW ONE
-    - Click `Next`
-    - AMI type: `Amazon Linux 2`
-    - Capacity: `On-Demand`
-    - Instance type: `t3.xlarge`
-    - Disk size: `20`
-    - Desired size: `2`
-    - Minimum size: `2`
-    - Maximum size: `2`
-    - Maximum unavailable (Number): `1`
-    
+- Once the Cluster Creation is Complete and the `Status = Active`
+- Click on the Cluster name `eks-anthos-managed-cluster` (Confirm it's in an Active State)
+- Click on `Compute`
+- Click on `Add node group`
+![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%202.11.27%20PM.png)
+  - Name: `eks-default-ng`
+  - Node IAM role: Select the `AWSServiceRoleForAmazonEKSNodegroup` *role or any existing role, or Create a NEW ONE*
+  - Click `Next`
+  - AMI type: `Amazon Linux 2`
+  - Capacity: `On-Demand`
+  - Instance type: `t3.xlarge`
+  - Disk size: `20`
+  - Desired size: `2`
+  - Minimum size: `2`
+  - Maximum size: `2`
+  - Maximum unavailable (Number): `1`
     - Click on `Next`
-        - Subnets: Select atleast Two subnets (You can as well select all)
-        - Configure remote access to nodes: `DISABLE`
-        - Click on `Next`
-        - Click on `CREATE`
+  - Subnets: Select atleast Two subnets (You can as well select all)
+  - Configure remote access to nodes: `DISABLE`
+    - Click on `Next`
+  - Click on `CREATE`
+![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%202.30.09%20PM.png)
 
 ### 2) Create An AKS Cluster on Azure
-
 
 
 
@@ -68,11 +110,27 @@
 - `Launch` Instance
 
 ##### Generate API Access Keys
-- Identify one of your `Admin` users
-- Generate a new set of Access Keys from the user
-- `Save` them
+- Navigate to `IAM`
+- Identify the `User` that you used to `create` the `EKS Cluster`
+  - Could be a *`Normal User` or `Root User`*
+![IAMGenerateAccessKeys!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%202.39.21%20PM.png)
+- Generate a new set of `Access Keys` from the user
+  - **NOTE:** *Make sure it's the user you used to create the EKS Cluster*
+  - **Root User:** *For the `Root User`, Follow the bellow steps to Generate the Access Keys*
+    - Click on your Account Name `Top Right`
+    - Click on `Security Credentials`
+    - Click on `Create Access Keys`
+- `Save` them on a NodePad or Something
 
 ##### Install AWS CLI on The `EKS-Setup-Env` Instance 
+- Navigate to `EC2`
+- Login/SSH into the `EKS-Setup-Env` Instance 
+- Install the following Utilities
+  * Install `AWS CLI`
+  * Install `eksctl`
+  * Install `kubectl`
+  * Install `Google Cloud SDK (gcloud)etc`
+
 ```bash
 sudo yum update -y
 sudo yum install -y python3
@@ -91,6 +149,7 @@ aws configure
 ```
 
 ##### Confirm User Credential Config (Make sure the USER matches the user used to create the cluster)
+**NOTE:*** *Make sure the User Name you get reflects the User that Provisioned the EKS Cluster*
 ```bash
 aws sts get-caller-identity
 ```
@@ -191,7 +250,7 @@ aws eks --region CLUSTER_REGION update-kubeconfig --name CLUSTER_NAME
 ```bash
 kubectl get nodes
 
-eksctl get cluster --name anthoseksmanagedclusterss --region us-west-2
+eksctl get cluster --name eks-anthos-managed-cluster --region us-west-2
 
 kubectl get pods --all-namespaces
 ```
@@ -218,7 +277,7 @@ gcloud config configurations list
 
 ##### Register The EKS Cluster To Anthos Hub
 ```bash
-gcloud container hub memberships register anthoseksmanagedclusters \
+gcloud container hub memberships register eks-anthos-managed-cluster \
 --context=$KUBE_CONFIG_CONTEXT \
 --public-issuer-url=$OIDC_URL \
 --kubeconfig="~/.kube/config" \
@@ -257,7 +316,7 @@ echo $BASE64_ENCODED_TOKEN
 #### 8.3) We Have To Now Authorize The EKS Cluster Access From Cloud Anthos (To Proide Access To Anthos)
 - Navigate tho the `Anthos Dashboard` or `Login Page`
     - Click on `Clusters`
-    - Click on your cluster name `anthoseksmanagedclusterss`
+    - Click on your cluster name `eks-anthos-managed-cluster`
         - **NOTE::** You'll see, `Authenticate into the cluster to see more details`
         - **NOTE::** You can as well Go to GKE --> Click Cluster Name
         - Click on `LOGIN` 
@@ -270,7 +329,7 @@ echo $BASE64_ENCODED_TOKEN
         - Congratulations, `you are now LOGGED IN`
         - Navigate Back to `Anthos UI/Dashboard`
 
-
+### 
 
 
 
