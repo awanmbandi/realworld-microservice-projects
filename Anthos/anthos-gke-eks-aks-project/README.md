@@ -311,9 +311,15 @@ kubectl get pods -n gke-connect
 ![CreateMembership](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.46.02%20PM.png)
 
 ### 8) Login To The Attached EKS Cluster (For Anthos To Manage)
+**NOTE:** *We Need To Authorize Anthos To The EKS Cluster Using K8S Service Accounts and Token*
+
 #### 8.1) Configure Authentication/Authorization From AWS EKS To Anthos with S.A Tokens
 ```bash
 kubectl create serviceaccount -n kube-system anthos-admin-sa
+
+# Run the following ""GET"" Command and Confirm You Have a Result With ""SECRET=1""
+# IF you do not have ""SECRET=1"", it therefore means you didn't select the right ""K8S Version"" For Your EKS Cluster
+# Kubernetes made an Update that says any Cluster with version 24.++ and Above, would'nt support Auto Secret Creation
 kubectl get serviceaccount anthos-admin-sa -n kube-system
 kubectl create clusterrolebinding anthos-admin-sa-binding --clusterrole cluster-admin --serviceaccount kube-system:anthos-admin-sa
 
@@ -344,11 +350,52 @@ echo $BASE64_ENCODED_TOKEN
         - Select `Token`
         - PASTE the `DECODED Version` of the `TOKEN` in the `BOX`
         - Click on `LOGIN` 
-
         - Congratulations, `you are now LOGGED IN`
         - Navigate Back to `Anthos UI/Dashboard`
+![CreateMembership](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.00.20%20PM.png)
 
-### 
+### Create Your Project GitHub Repository (Deploy A Microservice Application)
+- Navigate to `GitHub`
+- Click on `Repositories` and then `Create New Repository`
+![GitHubProjectRepo](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.30.14%20PM.png)
+- Repository Name: `anthos-acm-configsync-project`
+- Select `Public`
+- Check the box `Add a README file`
+- Click `Create Repository`
+
+#### Clone The Above Repository Locally, Download The Project Scripts and Push To Your GitHub Repo
+- Download the `Project ZIP/Code` From: https://github.com/awanmbandi/realworld-microservice-projects/tree/GCP
+    - Unzip the Downloaded ZIP
+    - Copy All the Folders/Directorys in the Following Path `realworld-microservice-projects/Anthos/anthos-gke-eks-aks-project`
+    - There are `5 Packages` Deployments in Total
+        - package-backend
+        - package-database
+        - package-redis
+        - package-results
+        - package-vote
+    - `COPY` ALL of the ABOVE Project `PACKAGES/Deployments` Configs
+    - `PASTE` them in the Repository You Cloned Locally
+    - `COMMIT` the Changes and PUSH the Code to `GitHub`
+
+### Configure and Implement Anthos Config Management With Config Sync
+### A) Install The ACM Config Sync Agent Accross Your Fleet (GKE and EKS Clusters)
+- On the Anthos Dashboard
+- Under `Fleet Features`, Click on `Config` 
+![ConfigureACM](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.04.25%20PM.png)
+  - Click on `Install Config Sync`
+  - Version: Select the `Latest`
+  - Installation options: Choose `Install Config Sync on entire fleet (recommended)`
+  - Click on `INSTALL CONFIG SYNC`
+- Confirm the Installation was Successful across Both the `GKE` and `EKS` Clusters
+  - Click on `Config` >>> `SETTINGS`
+![ConfigureACM](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.15.04%20PM.png)
+
+### B) Create and Deploy A Microservice Application Package Across The Fleet
+- NOTE: This could also be a monitoring software you might want to deploy across your entire Anthos Environment to monitor Workloads
+- Use Case: It could be a Distributed Tracing Software to expose you the application Traces (Across All Environments)
+- Use Case: It Could be a Governance or Compliance Policy or Control which you might want to Enforce Accros All Cloud Workloads
+- Use Case: Etc.. Etc..
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.17.18%20PM.png)
 
 
 
