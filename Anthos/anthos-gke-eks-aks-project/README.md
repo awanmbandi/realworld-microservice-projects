@@ -433,6 +433,12 @@ kubectl get pods -n voting-webapp
 - Click on `EC2` >>>> Click `LoadBalacners` 
 ![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%206.08.06%20PM.png)
 
+- Access the `Voting` Frontend Service using the `Vote` Service LoadBalancer DNS
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%201.46.02%20AM.png)
+
+- Access the `Result` Frontend Service, using the `Result` Service LoadBalancer DNS
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%201.48.11%20AM.png)
+
 #### AWS GKE Cluster 
 
 
