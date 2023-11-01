@@ -563,7 +563,7 @@ kubectl apply -f lb-service.yaml
 service/webapp created
 ```
 ### Policy Controller Reports/UI Dashbaord
-![ACMPolicyController]()
+![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%204.19.42%20AM.png)
 
 ## CONGRATULATIONS! CONGRATULATIONS!
 
