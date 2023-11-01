@@ -1,14 +1,14 @@
-## Multi-Cloud Implementation With Cloud Anthos
+# Multi-Cloud Implementation With Cloud Anthos
 ![ProjectArch!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/cloud_anthos_arch_project_v2.png)
 
 ### 1) Create A GKE Cluster on GCP
-#### A) Sign into your GCP Account
+### A) Sign into your GCP Account
 - Open a new Tab on your choice browser
 - Signup For a Free Google Cloud Account using the Following URL: https://cloud.google.com/free
 - Once you complete the Signup process, you would be logged into the Google Cloud Console as shown below
 ![ProjectArch!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%201.26.23%20PM.png)
 
-#### B) Enable The GKE Service API and Cloud Anthos APIs
+### B) Enable The GKE Service API and Cloud Anthos APIs
 1. Enable GKE Service API
 ![GKEService API1!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-30%20at%204.11.29%20PM.png)
 ![GKEService API2!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-30%20at%204.12.59%20PM.png)
@@ -19,7 +19,7 @@
 3. Navigate to The Anthos Dashboard
 ![AnthosService Dashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-30%20at%204.06.09%20PM.png)
 
-#### C) Create The GKE Cluster
+### C) Create The GKE Cluster
 - Navigate to the `GKE Service`
 - Click on `Create`
 ![GKEDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%201.09.45%20PM.png)
@@ -49,7 +49,7 @@
 
 
 ### 2) Create An EKS Cluster on AWS
-##### A) Create The Cluster
+### A) Create The Cluster
 - Navigate to `AWS EKS`
 - Click on `Add Cluster`
 ![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%201.43.36%20PM.png)
@@ -76,7 +76,7 @@
   - **NOTE:** *If you run into an error about resource availability within a specific zone, click on previous and delete the Zone Subnet Selection and then Create*
 ![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%202.03.16%20PM.png)
 
-##### B) Create EKS Cluster Node Group
+### B) Create EKS Cluster Node Group
 - Once the Cluster Creation is Complete and the `Status = Active`
 - Click on the Cluster name `eks-anthos-managed-cluster` (Confirm it's in an Active State)
 - Click on `Compute`
@@ -100,19 +100,15 @@
   - Click on `CREATE`
 ![EKSDashboard!](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%202.30.09%20PM.png)
 
-### 2) Create An AKS Cluster on Azure
-
-
-
 ### 3) Create a Management Instance on AWS (For EKS Cluster Setup)
-##### Create EC2 Instance 
+### 3.1) Create EC2 Instance 
 - Name: `EKS-Setup-Env`
 - AMI: `CentOs 7`
 - Instance type: `t2.micro`
 - Keypair: `Select or create one`
 - `Launch` Instance
 
-##### Generate API Access Keys
+### 3.2) Generate API Access Keys
 - Navigate to `IAM`
 - Identify the `User` that you used to `create` the `EKS Cluster`
   - Could be a *`Normal User` or `Root User`*
@@ -125,7 +121,7 @@
     - Click on `Create Access Keys`
 - `Save` them on a NodePad or Something
 
-##### Install AWS CLI on The `EKS-Setup-Env` Instance 
+### A) Install AWS CLI on The `EKS-Setup-Env` Instance 
 - Navigate to `EC2`
 - Login/SSH into the `EKS-Setup-Env` Instance 
 - Install the following Utilities
@@ -144,24 +140,24 @@ sudo ./aws/install
 aws --version
 ```
 
-##### Configure Your AWS CLI User Profile
+### Configure Your AWS CLI User Profile
 - **NOTE:** Make sure you use the **USER Credentials** from the user you used to create the cluster **(Root or Normal user)**
 - **NOTE:** If Not you wont be able to reach the cluster
 ```bash
 aws configure
 ```
 
-##### Confirm User Credential Config (Make sure the USER matches the user used to create the cluster)
+### Confirm User Credential Config (Make sure the USER matches the user used to create the cluster)
 **NOTE:*** *Make sure the User Name you get reflects the User that Provisioned the EKS Cluster*
 ```bash
 aws sts get-caller-identity
 ```
 
-### 3) INSTALL AWS EKS `eksctl` On The `EKS-Setup-Env` VM Instance. The Commands Support `arm64`, `armv6` or `armv7`
-##### The Installation Link
+### B) Install AWS `eksctl` On The `EKS-Setup-Env` VM Instance. The Commands Support `arm64`, `armv6` or `armv7`
+#### The Installation Link
 - https://eksctl.io/installation/
 
-##### Installation Commands
+### Installation Commands
 ```bash
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
@@ -177,11 +173,11 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ```
 
-### 4) Installing Kubernetes `kubectl` Command Line in the `EKS-Setup-Env` Instance
-##### Installing Kubernetes kubectl command line Link
+### C) Installing Kubernetes `kubectl` Command Line in the `EKS-Setup-Env` Instance
+#### Installing Kubernetes kubectl command line Link
 - https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
 
-##### `kubectl` Installation Commands
+### `kubectl` Installation Commands
 ```bash
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.2/2023-10-17/bin/linux/amd64/kubectl
 
@@ -200,10 +196,10 @@ echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
 kubectl version --client
 ```
 
-### 4) Installation Google Cloud SDK for Linux
+### D) Installation Google Cloud SDK for Linux
 - https://cloud.google.com/sdk/docs/install#linux
 
-##### Cloud SDK Installation and Configuration Steps (For Cloud Anthos)
+### Cloud SDK Installation and Configuration Steps (For Cloud Anthos)
 ```bash
 curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/PACKAGE_NAME
 
@@ -220,19 +216,19 @@ gcloud version  # or
 gcloud --version
 ```
 
-##### Initialize Cloud SDK and Login
+### E) Initialize Cloud SDK and Login
 ```bash
 gcloud init
 ```
 
-##### Configure Your User and Application Auths and Set Project ID
+### Configure Your User and Application Auths and Set Project ID
 ```bash
 gcloud auth login
 gcloud config set project PROJECT_ID
 gcloud auth application-default login
 ```
 
-##### Enable The Following APIs on GCP For Anthos
+### F) Enable The Following APIs on GCP For Anthos
 ```bash
 gcloud services enable gkemulticloud.googleapis.com
 gcloud services enable gkeconnect.googleapis.com
@@ -244,13 +240,13 @@ gcloud services enable monitoring.googleapis.com
 gcloud services enable opsconfigmonitoring.googleapis.com
 ```
 
-### 5) Access Cluster: Update the `Kube Config` Configuration 
+### 4) Access Cluster: Update the `Kube Config` Configuration 
 This file is used to managed K8S Cluster User Authorization Definition
 ```bash
 aws eks --region CLUSTER_REGION update-kubeconfig --name CLUSTER_NAME
 ```
 
-##### Get the Nodes and Pods to confirm Cluster Access
+### Get the Nodes and Pods to confirm Cluster Access
 ```bash
 kubectl get nodes
 
@@ -259,8 +255,8 @@ eksctl get cluster --name eks-anthos-managed-cluster --region us-west-2
 kubectl get pods --all-namespaces
 ```
 
-### 6) Configure/Complete EKS Cluster Membership Prequisites
-##### Setup The `OIDC` URL and `KUBE_CONFIG_CONTEXT` Context Variables
+### 5) Configure/Complete EKS Cluster Membership Prequisites
+### Setup The `OIDC` URL and `KUBE_CONFIG_CONTEXT` Context Variables
 ```bash
 # Create OIDC URL Variable
 OIDC_URL=$(aws eks describe-cluster --name <Cluster_Name> --region <Cluster_Region> --query "cluster.identity.oidc.issuer" --output text)
@@ -272,7 +268,7 @@ echo $KUBE_CONFIG_CONTEXT
 kubectl get ns     (After Running the Mmbership Register Command, A new namespace will get created for the Anthos Connect Agent)
 ```
 
-### 7) Register The GKE Cluster As A Member To The Anthos Hub
+### 6) Register The GKE Cluster As A Member To The Anthos Hub
 - Navigate to `Anthos Clusters Dashboard`
 - Click on `REGISTER GKE CLUSTER`
 ![RegisterGKECluster](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.28.07%20PM.png)
@@ -281,15 +277,15 @@ kubectl get ns     (After Running the Mmbership Register Command, A new namespac
   - Go back to `Clusters`
 ![AnthosFleet](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.33.33%20PM.png)
 
-### 8) Register The EKS Cluster As A Member To The Anthos Hub
+### 7) Register The EKS Cluster As A Member To The Anthos Hub
 - Navigate back to the `EKS-Setup-Env` Instance
-- Confirm That Your Auth and Project Configurations Are All Set
+- A) Confirm That Your Auth and Project Configurations Are All Set
 ```bash
 gcloud auth list
 gcloud config configurations list
 ```
 
-##### Register The EKS Cluster To Anthos Hub
+### B) Register The EKS Cluster To Anthos Hub
 - Remove `PROVIDE_PROJECT_ID` and Provide your Anthos `Project ID`
 ```bash
 gcloud container hub memberships register eks-anthos-managed-cluster \
@@ -301,13 +297,13 @@ gcloud container hub memberships register eks-anthos-managed-cluster \
 ```
 ![CreateMembership](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%203.40.55%20PM.png)
 
-##### Confirm That The Anthos Connect Agent Was Deployed Successfully And It's Running
+### Confirm That The Anthos Connect Agent Was Deployed Successfully And It's Running
 ```bash
 kubectl get ns
 kubectl get pods -n gke-connect
 ```
 
-##### Confirm That The EKS Cluster Membership Regration Was Successful
+### Confirm That The EKS Cluster Membership Regration Was Successful
 - Navigate back to Cloud Anthos 
 - Click on Clusters
 - You can as well verify this From the `GKE Service`
@@ -316,7 +312,7 @@ kubectl get pods -n gke-connect
 ### 8) Login To The Attached EKS Cluster (For Anthos To Manage)
 **NOTE:** *We Need To Authorize Anthos To The EKS Cluster Using K8S Service Accounts and Token*
 
-#### 8.1) Configure Authentication/Authorization From AWS EKS To Anthos with S.A Tokens
+### 8.1) Configure Authentication/Authorization From AWS EKS To Anthos with S.A Tokens
 ```bash
 kubectl create serviceaccount -n kube-system anthos-admin-sa
 
@@ -335,13 +331,13 @@ BASE64_ENCODED_TOKEN=$(kubectl get secret -n kube-system $SECRET_NAME -o jsonpat
 echo $BASE64_ENCODED_TOKEN
 ```
 
-#### 8.2) Decode above token and use it
+### 8.2) Decode above token and use it
 - Go to: https://www.base64decode.org/
     - Paste the Encoded Version 
     - Click on `DECODE`
     - Navigate to `Anthos LOGIN Page`
 
-#### 8.3) We Have To Now Authorize The EKS Cluster Access From Cloud Anthos (To Proide Access To Anthos)
+### 8.3) We Have To Now Authorize The EKS Cluster Access From Cloud Anthos (To Proide Access To Anthos)
 - Navigate tho the `Anthos Dashboard` or `Login Page`
     - Click on `Clusters`
     - Click on your cluster name `eks-anthos-managed-cluster`
@@ -357,7 +353,7 @@ echo $BASE64_ENCODED_TOKEN
         - Navigate Back to `Anthos UI/Dashboard`
 ![CreateMembership](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.00.20%20PM.png)
 
-### Create Your Project GitHub Repository (Deploy A Microservice Application)
+### 9) Create Your Project GitHub Repository (Deploy A Microservice Application)
 - Navigate to `GitHub`
 - Click on `Repositories` and then `Create New Repository`
 ![GitHubProjectRepo](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.30.14%20PM.png)
@@ -366,7 +362,7 @@ echo $BASE64_ENCODED_TOKEN
 - Check the box `Add a README file`
 - Click `Create Repository`
 
-#### Clone The Above Repository Locally, Download The Project Scripts and Push To Your GitHub Repo
+### Clone The Above Repository Locally, Download The Project Scripts and Push To Your GitHub Repo
 - Download the `Project ZIP/Code` From: https://github.com/awanmbandi/realworld-microservice-projects/tree/GCP
     - Unzip the Downloaded ZIP
     - Copy All the Folders/Directorys in the Following Path `realworld-microservice-projects/Anthos/anthos-gke-eks-aks-project`
@@ -382,7 +378,7 @@ echo $BASE64_ENCODED_TOKEN
 - You Should Have Same Code On Github as Shown Below
 ![GitHubProjectRepo](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%204.56.51%20PM.png)
 
-### Configure and Implement Anthos Config Management With Config Sync
+### 10) Configure and Implement Anthos Config Management With Config Sync
 ### A) Install The ACM Config Sync Agent Accross Your Fleet (GKE and EKS Clusters)
 - On the Anthos Dashboard
 - Under `Fleet Features`, Click on `Config` 
@@ -419,7 +415,7 @@ echo $BASE64_ENCODED_TOKEN
 1. Confirm that the `voting-webapp` namespace was created across both the `GKE` and `EKS` Clusters
 ![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%205.37.28%20PM.png)
 
-#### AWS EKS Cluster 
+### 11) AWS EKS Cluster 
 - Login to your `EKS Cluster` using the VM if you're not logged in
 - Run the bellow commands to verify the `Namespace and Pods`
 ```bash
@@ -443,7 +439,7 @@ kubectl get pods -n voting-webapp
 - Access the `Result` Frontend Service, using the `Result` Service LoadBalancer DNS
 ![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%201.48.11%20AM.png)
 
-#### Google GKE Cluster 
+### 12) Google GKE Cluster 
 - Login to your `GKE Cluster` using the VM if you're not logged in
 - Navigate to `GKE`
     - Click on the cluster name `gke-anthos-managed-cluster`
@@ -468,8 +464,8 @@ kubectl get pods -n voting-webapp
 - Click on `LoadBalancers` >>>> Click `Frontend` 
 ![LoginToGKECluster](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%202.20.46%20AM.png)
 
-### TEST THE SELF HEALING CAPABILITY OF ConfigSync with ACM
-#### Google GKE Cluster  (The Expectation Is Once You Delete It Should Reconcile The Configuration after `15` Seconds)
+### 13) TEST THE SELF HEALING CAPABILITY OF ConfigSync with ACM
+### Google GKE Cluster  (The Expectation Is Once You Delete It Should Reconcile The Configuration after `15` Seconds)
 1) Update The Amount of Replicas of the application..
 **NOTE:** MAKE SURE TO UPDATE THIS THROUGH `GIT/GITHUB` NOT DIRECTLY 
 **NOTE:** SINCE CONFIG SYNC WILL `SYNCRONIZE THE CHANGES` AUTOMATICALLY
@@ -482,8 +478,8 @@ kubectl get pods -n voting-webapp
 3) Delete All The Various Deployments In The `voting-webapp` Namespace
 4) Delete the `voting-webapp` Namespace 
 
-### IMPLEMENT A GOVERNANCE AND COMPLIANCE POLICY THAT PREVENTS INTERNET ACCESS IN THE `GKE` CLUSTER
-#### 1) Install Anthos Policy Controller on Both Clusters
+### 14) IMPLEMENT A GOVERNANCE AND COMPLIANCE POLICY THAT PREVENTS INTERNET ACCESS IN THE `GKE` CLUSTER
+### A) Install Anthos Policy Controller on Both Clusters
 - Navigate to `Anthos Dashboard`
 - Click on `Config` also known as `ACM`
 ![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.04.41%20AM.png)
@@ -500,7 +496,7 @@ kubectl get pods -n voting-webapp
 - AWS EKS Cluster
 ![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.17.06%20AM.png)
 
-#### 2) Deploy The Policy Configuration To BLOCK INTERNET ACCESS To The `AWS` CLUSTER
+### B) Deploy The Policy Configuration To BLOCK INTERNET ACCESS To The `AWS` CLUSTER
 - Open the following Repository/Branch URL: https://github.com/awanmbandi/anthos-acm-configsync-project/tree/anthos-policies
 - COPY the Git URL
 - Navigate to `Anthos Dashboard`
@@ -527,7 +523,7 @@ kubectl get pods -n voting-webapp
 **NOTE:** *Confirm that the policy was deployed succesfully*
 ![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.44.24%20AM.png)
 
-### 3) TEST THE NO-INTERNET-ACCESS-POLICY YOU JUST APPLIED TO THE AWS CLUSTER
+### 15) TEST THE NO-INTERNET-ACCESS-POLICY YOU JUST APPLIED TO THE AWS CLUSTER
 - Navigate to the AWS EKS VM Instance 
 - Install Git and Clone the Project Repository
 ```bash
@@ -547,7 +543,7 @@ kubectl apply -f lb-service.yaml
 Error from server (Forbidden): error when creating "lb-service.yaml": admission webhook "validation.gatekeeper.sh" denied the request: [no-internet-services] Creating services of type `LoadBalancer` without Internal annotation or not setting `service.beta.kubernetes.io/aws-load-balancer-internal` to true is not allowed
 ```
 
-### 3) TEST THE THE SAME INTERNET/LOADBALANCER SERVICE DEPLOYMENT IN THE GKE CLUSTER
+### 16) TEST THE THE SAME INTERNET/LOADBALANCER SERVICE DEPLOYMENT IN THE GKE CLUSTER
 - Navigate to your `Cloud Shell` where you are logged in
 - Run the Following Commands
 ```bash
