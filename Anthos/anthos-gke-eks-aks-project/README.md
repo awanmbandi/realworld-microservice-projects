@@ -562,6 +562,8 @@ kubectl apply -f lb-service.yaml
 ```js
 service/webapp created
 ```
+### Policy Controller Reports/UI Dashbaord
+![ACMPolicyController]()
 
 ## CONGRATULATIONS! CONGRATULATIONS!
 
