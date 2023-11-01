@@ -425,8 +425,9 @@ kubectl get pods -n voting-webapp
 ```
 ![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%205.55.07%20PM.png)
 
-- Confirm that The Voting and Result LoadBalancer Services were created successfully
-- Also the various Deployments
+- Confirm that The `Voting` and `Result` LoadBalancer Services were created successfully
+- Confirm that The postgresql`db` and `redis` Cluster IP Services were created successfully
+- Also Confirm that the various Deployments succeded as well
 ![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-10-31%20at%206.04.56%20PM.png)
 
 - Navigate to `LoadBalancers` in `EC2` and You'll see the two Loadbalancers
@@ -439,17 +440,130 @@ kubectl get pods -n voting-webapp
 - Access the `Result` Frontend Service, using the `Result` Service LoadBalancer DNS
 ![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%201.48.11%20AM.png)
 
-#### AWS GKE Cluster 
+#### Google GKE Cluster 
+- Login to your `GKE Cluster` using the VM if you're not logged in
+- Navigate to `GKE`
+    - Click on the cluster name `gke-anthos-managed-cluster`
+    - Click on `Connect`
+![LoginToGKECluster](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%201.56.46%20AM.png)
+  - Once the Terminal Opens, Run the Command
+  - Click `Authorize` to Authaurize Cloud Shell access
 
+- Run the bellow commands to verify the `Namespace and Pods`
+```bash
+kubectl get ns
+kubectl get pods -n voting-webapp
+```
+![DeployACMPackage](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%202.01.00%20AM.png)
+
+- Confirm that The `Voting` and `Result` LoadBalancer Services were created successfully
+- Confirm that The postgresql`db` and `redis` Cluster IP Services were created successfully
+- Also Confirm that the various Deployments succeded as well
+![LoginToGKECluster](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%202.08.55%20AM.png)
+
+- Navigate to `LoadBalancers` in `Frontend` and You'll see the two Loadbalancers
+- Click on `LoadBalancers` >>>> Click `Frontend` 
+![LoginToGKECluster](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%202.20.46%20AM.png)
 
 ### TEST THE SELF HEALING CAPABILITY OF ConfigSync with ACM
 #### Google GKE Cluster  (The Expectation Is Once You Delete It Should Reconcile The Configuration after `15` Seconds)
-1. Delete The LoadBalancer Services Including the PostgreSQL DB and Redis Cache Service 
-2. Delete All The Various Deployments In The `voting-webapp` Namespace
-3. Delete the `voting-webapp` Namespace 
+1) Update The Amount of Replicas of the application..
+**NOTE:** MAKE SURE TO UPDATE THIS THROUGH `GIT/GITHUB` NOT DIRECTLY 
+**NOTE:** SINCE CONFIG SYNC WILL `SYNCRONIZE THE CHANGES` AUTOMATICALLY
+**NOTE:** VERIFY BOTH YOUR `GKE` and `EKS` CLUSTERS, FOR THE CHANGES
+    - Scale The *`Voting Microservice`:* to `10`
+    - Scale The *`Result Microservice:`* to `10`
+    - Scale The *`Worker Microservice:`* to `5`
 
+2) Delete The LoadBalancer Services Including the PostgreSQL DB and Redis Cache Service 
+3) Delete All The Various Deployments In The `voting-webapp` Namespace
+4) Delete the `voting-webapp` Namespace 
 
+### IMPLEMENT A GOVERNANCE AND COMPLIANCE POLICY THAT PREVENTS INTERNET ACCESS IN THE `GKE` CLUSTER
+#### 1) Install Anthos Policy Controller on Both Clusters
+- Navigate to `Anthos Dashboard`
+- Click on `Config` also known as `ACM`
+![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.04.41%20AM.png)
+- Choose an installation option: Select `Install on your fleet`
+- Click `ACTIVATE POLICY CONTROLER`
+- Monitor the `Policy Controller Status` for both Clusters 
+    - gke-anthos-managed-cluster: Shows `Installed`
+    - eks-anthos-managed-cluster: Shows `Installed` as well
+![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.20.50%20AM.png)
 
+- Run The Bellow Command Across your `GKE` and `EKS` Cluster to Confirm Policy Controller Installation
+- Google Kubernetes Engine Cluster
+![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.24.22%20AM.png)
+- AWS EKS Cluster
+![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.17.06%20AM.png)
+
+#### 2) Deploy The Policy Configuration To BLOCK INTERNET ACCESS To The `AWS` CLUSTER
+- Open the following Repository/Branch URL: https://github.com/awanmbandi/anthos-acm-configsync-project/tree/anthos-policies
+- COPY the Git URL
+- Navigate to `Anthos Dashboard`
+- Click on `Config`
+- Click on `Deploy Package`
+![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.31.25%20AM.png)
+- Select clusters for package deployment: 
+    - Select `eks-anthos-managed-cluster`  *we'll apply the `No-Internet-Access` to the `EKS Cluster` only for Testing*
+    - Click on `Continue`
+    - Source type: Choose `Git`
+    - Click on `Continue`
+    - Source type: Select `Git`
+    - Package name: `no-internet-access-policy`
+    - Sync type: `RootSync`
+    - Repository URL: Provide `https://github.com/awanmbandi/anthos-acm-configsync-project.git`
+    - Revision: `HEAD`
+    - Path: `/aws-cluster-policies`
+    - Branch: `anthos-policies`
+    - Authentication type: `None`
+    - Sync Wait time: `15` Seconds
+    - Source Format: `Unstructured`
+    - Click `CONTINUE`
+    - Click `DEPLOY PACKAGE`
+**NOTE:** *Confirm that the policy was deployed succesfully*
+![ACMPolicyController](https://github.com/awanmbandi/realworld-microservice-projects/blob/zdocs/images/Screen%20Shot%202023-11-01%20at%203.44.24%20AM.png)
+
+### 3) TEST THE NO-INTERNET-ACCESS-POLICY YOU JUST APPLIED TO THE AWS CLUSTER
+- Navigate to the AWS EKS VM Instance 
+- Install Git and Clone the Project Repository
+```bash
+sudo yum install git -y
+git clone https://github.com/awanmbandi/anthos-acm-configsync-project.git
+ls -al
+cd anthos-acm-configsync-project/
+git checkout anthos-policies
+ls -al
+cd internet-service-resource/
+# Deploy to Default Namespace
+kubectl apply -f lb-service.yaml
+```
+
+- **NOTE:** *ONCE you deploy, you'll get the following ERORR MESSAGE*
+```js
+Error from server (Forbidden): error when creating "lb-service.yaml": admission webhook "validation.gatekeeper.sh" denied the request: [no-internet-services] Creating services of type `LoadBalancer` without Internal annotation or not setting `service.beta.kubernetes.io/aws-load-balancer-internal` to true is not allowed
+```
+
+### 3) TEST THE THE SAME INTERNET/LOADBALANCER SERVICE DEPLOYMENT IN THE GKE CLUSTER
+- Navigate to your `Cloud Shell` where you are logged in
+- Run the Following Commands
+```bash
+git clone https://github.com/awanmbandi/anthos-acm-configsync-project.git
+ls -al
+cd anthos-acm-configsync-project/
+git checkout anthos-policies
+cd internet-service-resource/
+ls -al
+# Deploy to Default Namespace
+kubectl apply -f lb-service.yaml
+```
+
+- **NOTE:** *ONCE you Deploy to the GKE Cluster, It should succeed with message*
+```js
+service/webapp created
+```
+
+## CONGRATULATIONS! CONGRATULATIONS!
 
 
 
