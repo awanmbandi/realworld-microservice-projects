@@ -1,0 +1,15 @@
+# Links:
+# GO: https://github.com/stacksimplify/kubernetes-fundamentals/tree/master/07-PODs-with-YAML
+# 
+apiVersion: v1 # String
+kind: Pod  # String
+metadata: # Dictionary
+  name: caddy
+  labels: # Dictionary 
+    app: caddy         
+spec:
+  containers: # List
+    - name: caddy
+      image: caddy:latest
+      ports:
+        - containerPort: 80
